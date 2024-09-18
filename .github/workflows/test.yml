@@ -1,8 +1,8 @@
 name: Test for workflow
 on: push
 jobs:
-  testmask:
-      runs-on: ubuntu-latest
+  bash-example:
+    runs-on: ubuntu-latest
     env:
       MY_NAME: "Mona The Octocat"
     steps:
