@@ -1,5 +1,8 @@
 name: Test for workflow
 on: push
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
 jobs:
   generate-a-secret-output:
     runs-on: ubuntu-latest
