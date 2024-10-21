@@ -17,7 +17,10 @@ jobs:
     steps:
       - name: Show vars
         run: |
-          echo pg_version: ${{ matrix.pg_version }}
-          echo lfc: ${{ matrix.no_default_lfc }}
+          echo pg_version: $PG_VERSION
+          echo lfc: $NO_DEFAULT_LFC
+        env:
+          PG_VERSION: ${{ matrix.pg_version }}
+          NO_DEFAULT_LFC: ${{ matrix.no_default_lfc }}
     
 
