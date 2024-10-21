@@ -13,7 +13,7 @@ jobs:
         no_default_lfc: [false]
         include:
           - pg_version: 16
-          - no_default_lfc: true
+            no_default_lfc: true
     steps:
       - name: Show vars
         run: |
