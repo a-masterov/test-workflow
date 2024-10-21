@@ -4,15 +4,17 @@ defaults:
   run:
     shell: bash -euxo pipefail {0}
 jobs:
-  generate-a-secret-output:
+  regress-tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pg_version: [14, 15, 16]
+        no_default_lfc: [true, false]
     steps:
-      - id: sets-a-secret
-        name: Generate, mask, and output a secret
+      - name: Show vars
         run: |
-          the_secret=$((RANDOM))
-          echo "::add-mask::$the_secret"
-          echo "secret-number=$the_secret" >> "$GITHUB_OUTPUT"
-      - name: Use that secret output (protected by a mask)
-        run: |
-          echo "the secret number is ${{ steps.sets-a-secret.outputs.secret-number }}"
+          echo pg_version: ${{ strategy.pg_version }}
+          echo lfc: ${{ strategy.no_default_lfc }}
+    
+
