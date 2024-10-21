@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Show vars
         run: |
-          echo pg_version: ${{ strategy.pg_version }}
-          echo lfc: ${{ strategy.no_default_lfc }}
+          echo pg_version: ${{ strategy.matrix.pg_version }}
+          echo lfc: ${{ strategy.matrix.no_default_lfc }}
     
 
