@@ -17,3 +17,10 @@ jobs:
     steps:
       - name: say
         run: echo ${{ inputs.state }}; [ ${{ inputs.state }} != "lfc" ]
+  cover:
+    runs-on: "ubuntu-latest"
+    if: inputs.state == 'lfc' && always()
+    steps:
+      - name: sayok
+        run: exit 0
+  
