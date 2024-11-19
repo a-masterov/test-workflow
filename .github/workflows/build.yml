@@ -16,4 +16,4 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: say
-        run: echo ${{ inputs.state }}
+        run: echo ${{ inputs.state }}; [ ${{ inputs.state }} != "lfc" ]
