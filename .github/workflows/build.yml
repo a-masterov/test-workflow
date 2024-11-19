@@ -1,0 +1,19 @@
+name: Build
+
+on: 
+  workflow_call:
+    inputs:
+      state:
+         description: "lfc state"
+         required: true
+         type: string
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: say
+        run: echo ${{ inputs.state }}
