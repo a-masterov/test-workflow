@@ -13,7 +13,6 @@ jobs:
       matrix:
         state: [ lfc, nolfc ]
     runs-on: "ubuntu-latest"
-    continue-on-error: ${{ fromJSON(needs.cont.outputs.conterr) }}
     steps:
       - name: uses-lfc
         id: uselfc
