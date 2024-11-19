@@ -10,6 +10,7 @@ jobs:
       - name: Failure
         run: exit 1
   conclusion:
+    if: always()
     needs: test-fail
     runs-on: ubuntu-latest
     steps:
