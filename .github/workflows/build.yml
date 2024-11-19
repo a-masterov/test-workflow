@@ -18,6 +18,8 @@ jobs:
       - name: uses-lfc
         id: uselfc
         run: echo value=${{ matrix.state == 'lfc' && true || false }} >> $GITHUB_OUTPUT
+      - name: echolfc
+        run: echo ${{ steps.uselfc.outputs.value }}
       - name: say
-        continue-on-error: ${{ fromJSON(steps.uselfc.outputs.value) }}
+        #continue-on-error: ${{ fromJSON(steps.uselfc.outputs.value) }}
         run: echo ${{ matrix.state }}; [ ${{ matrix.state }} == "lfc" ]
