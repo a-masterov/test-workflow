@@ -12,7 +12,7 @@ defaults:
     shell: bash -euxo pipefail {0}
 
 jobs:
-  continue:
+  cont:
     runs-on: "ubuntu-latest"
     outputs: 
       conterr: ${{ steps.islfc.value }}
@@ -21,9 +21,9 @@ jobs:
         run: echo value=${{inputs.state == 'lfc' && 'true' || 'false' }} >> ${GITHUB_OUTPUT}; 
       
   build:
-    needs: [continue]
+    needs: [cont]
     runs-on: "ubuntu-latest"
-    continue-on-error: ${{ fromJSON(needs.continue.outputs.conterr) }}
+    continue-on-error: ${{ fromJSON(needs.cont.outputs.conterr) }}
     steps:
       - name: say
         run: echo ${{ inputs.state }}; [ ${{ inputs.state }} != "lfc" ]
