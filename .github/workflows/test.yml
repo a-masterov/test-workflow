@@ -5,9 +5,6 @@ defaults:
     shell: bash -euxo pipefail {0}
 jobs:
   build:
-    strategy:
-      matrix:
-        state: [lfc, nolfc]
     uses: ./.github/workflows/build.yml
     with:
       state: ${{ matrix.state }}
