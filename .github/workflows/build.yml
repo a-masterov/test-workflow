@@ -21,7 +21,7 @@ jobs:
         id: islfc
         run: echo value=${{inputs.state == 'lfc' && 'true' || 'false' }} >> "$GITHUB_OUTPUT"
       - name: show
-        run: echo ${{steps.islfc.outputs.value }}
+        run: echo ${{steps.islfc.outputs.conterr }}
   display:
     needs: [cont]
     runs-on: "ubuntu-latest"
