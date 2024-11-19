@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         state: [lfc, nolfc]
-    uses: ./.github/workflow/build.yml
+    uses: ./.github/workflows/build.yml
     with:
       state: ${{ matrix.state }}
   conclusion:
