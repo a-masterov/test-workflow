@@ -6,8 +6,7 @@ defaults:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
-    with:
-      state: ${{ matrix.state }}
+  
   conclusion:
     if: always()
     needs: [build]
