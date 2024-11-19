@@ -12,17 +12,18 @@ defaults:
     shell: bash -euxo pipefail {0}
 
 jobs:
-  build:
+  continue:
     runs-on: "ubuntu-latest"
-    continue-on-error: ${{ true && input.state == "lfc"}}
+    outputs: 
+      conterr: ${{ steps.islfc.value }}
+    steps: 
+      - name: islfc
+        run: echo value=${{inputs.state == "lfc" && "true" || false}} >> ${GITHUB_OUTPUT}; 
+      
+  build:
+    needs: [continue]
+    runs-on: "ubuntu-latest"
+    continue-on-error: ${{ fromJSON(needs.continue.outputs.conterr) }}
     steps:
       - name: say
         run: echo ${{ inputs.state }}; [ ${{ inputs.state }} != "lfc" ]
-  cover:
-    runs-on: "ubuntu-latest"
-    needs: [build]
-    if: inputs.state == 'lfc' && always()
-    steps:
-      - name: sayok
-        run: echo ${{ needs.build.result }}
-  
