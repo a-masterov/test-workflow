@@ -12,7 +12,6 @@ jobs:
     with:
       state: ${{ matrix.state }}
   conclusion:
-    if: always()
     needs: build
     runs-on: ubuntu-latest
     steps:
