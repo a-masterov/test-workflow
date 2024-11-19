@@ -4,17 +4,16 @@ defaults:
   run:
     shell: bash -euxo pipefail {0}
 jobs:
-  test-fail:
-    runs-on: ubuntu-latest
+  build:
     strategy:
       matrix:
         state: [lfc, nolfc]
-    steps:
-      - name: Failure
-        run: ${state} == "lfc" && exit 1 || exit 0
+    uses: ./.github/workflow/build.yml
+    with:
+      state: ${{ matrix.state }}
   conclusion:
     if: always()
-    needs: test-fail
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: OK
