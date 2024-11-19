@@ -9,5 +9,9 @@ jobs:
     steps:
       - name: Failure
         run: exit 1
-      - name: Continue after failure
+  conclusion:
+    needs: test-fail
+    runs-on: ubuntu-latest
+    steps:
+      - name: OK
         run: exit 0
