@@ -15,10 +15,10 @@ jobs:
   cont:
     runs-on: "ubuntu-latest"
     outputs: 
-      conterr: ${{ steps.islfc.value }}
+      conterr: ${{ steps.outputs.islfc.value }}
     steps: 
       - name: islfc
-        run: echo value=${{inputs.state == 'lfc' && 'true' || 'false' }} >> $GITHUB_OUTPUT; 
+        run: echo value=${{inputs.state == 'lfc' && 'true' || 'false' }} >> "$GITHUB_OUTPUT"
   display:
     needs: [cont]
     runs-on: "ubuntu-latest"
