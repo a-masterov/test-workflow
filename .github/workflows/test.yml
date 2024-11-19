@@ -12,8 +12,9 @@ jobs:
     with:
       state: ${{ matrix.state }}
   conclusion:
-    needs: build
+    if: always()
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: OK
-        run: exit 0
+        run: echo ${{ needs.*.result }}
