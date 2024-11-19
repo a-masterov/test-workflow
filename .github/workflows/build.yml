@@ -14,12 +14,13 @@ defaults:
 jobs:
   build:
     runs-on: "ubuntu-latest"
-    continue-on-error: true
+    #continue-on-error: true
     steps:
       - name: say
         run: echo ${{ inputs.state }}; [ ${{ inputs.state }} != "lfc" ]
   cover:
     runs-on: "ubuntu-latest"
+    needs: [build]
     if: inputs.state == 'lfc' && always()
     steps:
       - name: sayok
