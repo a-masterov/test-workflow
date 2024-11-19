@@ -17,7 +17,8 @@ jobs:
     outputs: 
       conterr: ${{ steps.islfc.outputs.value }}
     steps: 
-      - name: islfc
+      - name: is_lfc
+        id: islfc
         run: echo value=${{inputs.state == 'lfc' && 'true' || 'false' }} >> "$GITHUB_OUTPUT"
       - name: show
         run: echo ${{steps.islfc.outputs.value }}
