@@ -2,39 +2,22 @@ name: Build
 
 on: 
   workflow_call:
-    inputs:
-      state:
-         description: "lfc state"
-         required: true
-         type: string
 defaults:
   run:
     shell: bash -euxo pipefail {0}
 
 jobs:
-  cont:
-    runs-on: "ubuntu-latest"
-    outputs: 
-      conterr: ${{ steps.islfc.outputs.value }}
-    steps: 
-      - name: is_lfc
-        id: islfc
-        run: echo value=${{inputs.state == 'lfc' && 'true' || 'false' }} >> "$GITHUB_OUTPUT"
-      - name: show
-        run: echo ${{steps.islfc.outputs.value }}
-  display:
-    needs: [cont]
-    runs-on: "ubuntu-latest"
-    steps:
-      - env:
-          CONTERR: ${{ needs.cont.outputs.conterr }}
-        name: show
-        run: echo $CONTERR
-      
+
   build:
-    needs: [cont]
+    strategy:
+      matrix:
+        state: [ lfc, nolfc ]
     runs-on: "ubuntu-latest"
     continue-on-error: ${{ fromJSON(needs.cont.outputs.conterr) }}
     steps:
+      - name: uses-lfc
+        id: uselfc
+        run: echo value=${{ matrix.state == 'lfc' && true || false }} >> $GITHUB_OUTPUT
       - name: say
-        run: echo ${{ inputs.state }}; [ ${{ inputs.state }} == "lfc" ]
+        continue-on-error: ${{ fromJSON(steps.uselfc.outputs.value) }}
+        run: echo ${{ .state }}; [ ${{ inputs.state }} == "lfc" ]
