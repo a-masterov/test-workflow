@@ -19,11 +19,17 @@ jobs:
     steps: 
       - name: islfc
         run: echo value=${{inputs.state == 'lfc' && 'true' || 'false' }} >> ${GITHUB_OUTPUT}; 
+  display:
+    needs: [cont]
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: show
+        run: echo ${{ needs.cont.outputs.conterr }}
       
   build:
     needs: [cont]
     runs-on: "ubuntu-latest"
-    continue-on-error: ${{ fromJSON(needs.cont.outputs.conterr) }}
+    #continue-on-error: ${{ fromJSON(needs.cont.outputs.conterr) }}
     steps:
       - name: say
         run: echo ${{ inputs.state }}; [ ${{ inputs.state }} != "lfc" ]
