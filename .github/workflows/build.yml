@@ -23,8 +23,9 @@ jobs:
     needs: [cont]
     runs-on: "ubuntu-latest"
     steps:
-      - name: show
-        run: echo ${{ needs.cont.result }}
+      - env: 
+        name: show
+        run: echo ${{ toJSON(needs.cont.outputs) }}
       
   build:
     needs: [cont]
