@@ -6,9 +6,12 @@ defaults:
 jobs:
   test-fail:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        state: [lfc, nolfc]
     steps:
       - name: Failure
-        run: exit 1
+        run: ${state} == "lfc" && exit 1 || exit 0
   conclusion:
     if: always()
     needs: test-fail
