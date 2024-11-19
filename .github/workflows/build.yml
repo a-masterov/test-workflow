@@ -21,4 +21,4 @@ jobs:
         run: echo ${{ steps.uselfc.outputs.value }}
       - name: say
         continue-on-error: ${{fromJSON(steps.uselfc.outputs.value) }}
-        run: echo ${{ matrix.state }}; [ ${{ matrix.state }} == "lfc" ]
+        run: echo ${{ matrix.state }}; [ ${{ matrix.state }} != "lfc" ]
