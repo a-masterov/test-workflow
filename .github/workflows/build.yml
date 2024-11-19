@@ -24,7 +24,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: show
-        run: echo ${{ needs.cont.outputs.conterr }}
+        run: echo ${{ needs.cont.result }}
       
   build:
     needs: [cont]
