@@ -20,4 +20,4 @@ jobs:
         run: echo value=${{ matrix.state == 'lfc' && true || false }} >> $GITHUB_OUTPUT
       - name: say
         continue-on-error: ${{ fromJSON(steps.uselfc.outputs.value) }}
-        run: echo ${{ .state }}; [ ${{ inputs.state }} == "lfc" ]
+        run: echo ${{ matrix.state }}; [ ${{ matrix.state }} == "lfc" ]
