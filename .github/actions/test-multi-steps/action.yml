@@ -17,6 +17,6 @@ runs:
       shell: bash -euxo pipefail {0}
       run: echo ${{inputs.run_s2}}
     - name: step 2
-      if: ${{inputs.run_s2 == "true"}}
+      if: ${{format("{0}", inputs.run_s2) == "true"}}
       shell: bash -euxo pipefail {0}
       run: exit 1
