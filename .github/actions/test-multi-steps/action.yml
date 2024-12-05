@@ -13,6 +13,9 @@ runs:
     - name: step 1
       shell: bash -euxo pipefail {0}
       run: exit 0
+    - name: echo
+      shell: bash -euxo pipefail {0}
+      run: echo ${{inputs.run_s2}}
     - name: step 2
       if: ${{inputs.run_s2}}
       shell: bash -euxo pipefail {0}
