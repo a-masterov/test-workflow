@@ -10,7 +10,9 @@ inputs:
 runs:
   steps:
     - name: step 1
+      shell: bash -euxo pipefail {0}
       run: exit 0
     - name: step 2
       if: false
+      shell: bash -euxo pipefail {0}
       run: exit 1
