@@ -23,6 +23,6 @@ jobs:
       - name: step2
         uses: ./.github/actions/test-multi-steps
         with:
-          run_s2: true
+          run_s2: ${{inputs.run_s2}}
 
   
