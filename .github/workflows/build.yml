@@ -1,0 +1,24 @@
+name: Build
+
+on: 
+  workflow_call:
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
+
+jobs:
+
+  build:
+    strategy:
+      matrix:
+        state: [ lfc, nolfc ]
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: uses-lfc
+        id: uselfc
+        run: echo value=${{ matrix.state == 'lfc' && true || false }} >> $GITHUB_OUTPUT
+      - name: echolfc
+        run: echo ${{ steps.uselfc.outputs.value }}
+      - name: say
+        continue-on-error: ${{ matrix.state == 'lfc' }}
+        run: echo ${{ matrix.state }}; [ ${{ matrix.state }} != "lfc" ]
