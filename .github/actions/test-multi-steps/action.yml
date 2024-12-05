@@ -1,0 +1,16 @@
+name: TEst action
+description: Test Action
+
+inputs:
+  run_s2:
+    description: Run
+    type: boolean
+    default: false
+
+runs:
+  steps:
+    - name: step 1
+      run: exit 0
+    - name: step 2
+      if: false
+      run: exit 1
