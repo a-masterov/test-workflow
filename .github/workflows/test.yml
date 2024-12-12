@@ -19,6 +19,9 @@ jobs:
           echo pg_version: $PG_VERSION
           echo build_type: $BUILD_TYPE
           echo lfc: $LFC_STATE
+          if [ $LFC_STATE == true ] && [ $BUILD_TYPE == debug ]; then
+            exit 1
+          fi
         env:
           PG_VERSION: ${{ matrix.pg_version }}
           LFC_STATE: ${{ matrix.lfc_state }}
