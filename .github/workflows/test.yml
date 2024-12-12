@@ -12,17 +12,16 @@ jobs:
         pg_version: [14, 15, 16]
         arch: [x64, arm64]
         build_type: [debug, release]
-        no_default_lfc: [false]
-        include:
-          - pg_version: 16
-            no_default_lfc: true
+        lfc_state: [false,true]
     steps:
       - name: Show vars
         run: |
           echo pg_version: $PG_VERSION
-          echo lfc: $NO_DEFAULT_LFC
+          echo build_type: $BUILD_TYPE
+          echo lfc: $LFC_STATE
         env:
           PG_VERSION: ${{ matrix.pg_version }}
-          NO_DEFAULT_LFC: ${{ matrix.no_default_lfc }}
+          LFC_STATE: ${{ matrix.lfc_state }}
+          BUILD_TYPE: ${{ matrix.build_type }}
     
 
