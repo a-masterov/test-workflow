@@ -15,7 +15,7 @@ jobs:
         lfc_state: [with-lfc,without-lfc]
     steps:
       - name: Show vars
-        continue-on-error: ${{ matrix.lfc_state == 'with-lfc' }}
+        continue-on-error: ${{ matrix.build-type == 'debug' }}
         run: |
           echo pg_version: $PG_VERSION
           echo build_type: $BUILD_TYPE
