@@ -12,14 +12,15 @@ jobs:
         pg_version: [14, 15, 16]
         arch: [x64, arm64]
         build_type: [debug, release]
-        lfc_state: [false,true]
+        lfc_state: [with-lfc,without-lfc]
     steps:
       - name: Show vars
+        continue-on-error: ${{ matrix.lfc_state == "with-lfc" && matrix.build-type == 'debug' }}
         run: |
           echo pg_version: $PG_VERSION
           echo build_type: $BUILD_TYPE
           echo lfc: $LFC_STATE
-          if [ $LFC_STATE == true ] && [ $BUILD_TYPE == debug ]; then
+          if [ $LFC_STATE == with-lfc ] && [ $BUILD_TYPE == debug ]; then
             exit 1
           fi
         env:
