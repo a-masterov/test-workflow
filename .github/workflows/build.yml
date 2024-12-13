@@ -2,9 +2,15 @@ name: Build
 
 on: 
   workflow_call:
+    inputs:
+      build-type:
+        description: 'build type'
+        type: string
+        required: true
 defaults:
   run:
     shell: bash -euxo pipefail {0}
+
 
 jobs:
 
@@ -18,7 +24,9 @@ jobs:
         id: uselfc
         run: echo value=${{ matrix.state == 'lfc' && true || false }} >> $GITHUB_OUTPUT
       - name: echolfc
-        run: echo ${{ steps.uselfc.outputs.value }}
+        run: |
+          echo ${{ steps.uselfc.outputs.value }}
+          echo ${{inputs.build-type}}
       - name: say
         continue-on-error: ${{ matrix.state == 'lfc' }}
         run: echo ${{ matrix.state }}; [ ${{ matrix.state }} != "lfc" ]
