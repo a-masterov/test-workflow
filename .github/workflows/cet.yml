@@ -1,6 +1,12 @@
 name: Test
 on:
   workflow_dispatch: # adds ability to run this manually
+    inputs:
+      run_s2:
+        description: Run Step2
+        required: false
+        default: false
+        type: boolean
 defaults:
   run:
     shell: bash -euxo pipefail {0}
@@ -14,5 +20,6 @@ jobs:
 
       - name: step2
         if: false
+        if: ${{inputs.run_s2}}
         run: exit 1
   
