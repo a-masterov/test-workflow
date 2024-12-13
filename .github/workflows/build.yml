@@ -28,5 +28,5 @@ jobs:
           echo ${{ steps.uselfc.outputs.value }}
           echo ${{inputs.build-type}}
       - name: say
-        continue-on-error: ${{ matrix.state == 'lfc' }}
+        continue-on-error: ${{ matrix.state == 'lfc' && contains(inputs.build-type, 'debug')}}
         run: echo ${{ matrix.state }}; [ ${{ matrix.state }} != "lfc" ]
