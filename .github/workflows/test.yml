@@ -5,7 +5,12 @@ defaults:
     shell: bash -euxo pipefail {0}
 jobs:
   build:
+    strategy:
+      matrix:
+        build-type: [release,debug]
     uses: ./.github/workflows/build.yml
+    with:
+      build-type: ${{matrix.build-type}}
   
   conclusion:
     if: always()
