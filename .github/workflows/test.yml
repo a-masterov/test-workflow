@@ -4,15 +4,22 @@ defaults:
   run:
     shell: bash -euxo pipefail {0}
 jobs:
-  generate-a-secret-output:
+  build:
+    strategy:
+      matrix:
+        build-type: [release,debug]
+    uses: ./.github/workflows/build.yml
+    with:
+      build-type: ${{matrix.build-type}}
+  
+  conclusion:
+    if: always()
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - id: sets-a-secret
-        name: Generate, mask, and output a secret
-        run: |
-          the_secret=$((RANDOM))
-          echo "::add-mask::$the_secret"
-          echo "secret-number=$the_secret" >> "$GITHUB_OUTPUT"
-      - name: Use that secret output (protected by a mask)
-        run: |
-          echo "the secret number is ${{ steps.sets-a-secret.outputs.secret-number }}"
+      - name: Fail
+        if: |
+          contains(needs.*.result, 'failure')
+          || contains(needs.*.result, 'cancelled')
+          || contains(needs.*.result, 'skipped')
+        run: exit 1
